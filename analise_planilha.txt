@@ -1,0 +1,149 @@
+ANÁLISE DA PLANILHA DE ACOMPANHAMENTOS
+==================================================
+
+Informações do DataFrame:
+Número de linhas: 19048
+Número de colunas: 29
+
+Colunas disponíveis:
+- id
+- municipio
+- articulador_responsavel
+- nome
+- acompanhamento_cod
+- acompanhamento_data
+- acompanhamento_articulador
+- acompanhamento_acompanhamento_com
+- acompanhamento_outro_acompanhamento_com
+- acompanhamento_tipo_acompanhamento
+- acompanhamento_outro_tipo_acompanhamento
+- acompanhamento_sucesso_contato
+- acompanhamento_descricao
+- dado_algum_encaminhamento
+- instituicao_encaminhamento_educacao_cod
+- instituicao_encaminhamento_educacao
+- instituicao_encaminhamento_saude_cod
+- instituicao_encaminhamento_saude
+- instituicao_encaminhamento_assistencia_social_cod
+- instituicao_encaminhamento_assistencia_social
+- instituicao_encaminhamento_conselho_tutelar_cod
+- instituicao_encaminhamento_conselho_tutelar
+- instituicao_encaminhamento_estacao_conhecimento_cod
+- instituicao_encaminhamento_estacao_conhecimento
+- instituicao_encaminhamento_sociedade_civil_cod
+- instituicao_encaminhamento_sociedade_civil
+- instituicao_encaminhamento_outro_equipamento_cod
+- instituicao_encaminhamento_outro_equipamento
+- acompanhamento_tipo_sinalizacao
+
+Verificando colunas de interesse:
+A coluna "acompanhamento_descricao" existe no DataFrame
+Exemplos da coluna "acompanhamento_descricao" (primeiras 3 entradas não nulas):
+1: Mãe entrou em contato conosco para tentar colher informações a cerca de formas para conseguir acompanhamento com Neuro e, se comprovada a desconfiança da mãe, conseguir o laudo para Marcus. Mãe alega que não consegue abertura nas Unidades Básicas de Saúde. Passamos para a mãe que entraremos em contato com os espaços que podem fornecer essa especialidades e assim dar devolutiva de  procedimentos para família.
+2: Foi realizado envio de e-mail junto a família para a Chamada Pública escolar do município de Cariacica a fim de conseguir uma vaga na escola EMEF Noemia Costa de Lima para Marcus Vinícius no dia 16/02/2023.
+3: Após acompanhamento com família para saber sobre Marcus e sua relação com a escola, mãe afirmou que o mesmo conseguiu a vaga solicitada para transferência para o Emef Noemia Costa de Lima.
+A coluna "articulador_responsavel" existe no DataFrame
+Exemplos da coluna "articulador_responsavel" (primeiras 3 entradas não nulas):
+1: Vilmara Souza (i)
+2: Vilmara Souza (i)
+3: Vilmara Souza (i)
+
+Estatísticas das colunas de interesse:
+Coluna "acompanhamento_descricao":
+- Valores nulos: 0 (0.00%)
+- Comprimento médio do texto: 238.21 caracteres
+- Comprimento mínimo: 5 caracteres
+- Comprimento máximo: 20691 caracteres
+- Número de descrições muito curtas (<20 caracteres): 6 (0.03%)
+- Exemplos de descrições muito curtas:
+  * 1: "Cancelar"
+  * 2: "vvvvvv"
+  * 3: "teste"
+  * 4: "teste"
+  * 5: "Caixa postal."
+- Número de descrições potencialmente vagas: 439 (2.30%)
+- Exemplos de descrições potencialmente vagas:
+  * 1: "Realizada visita domiciliar para acompanhamento e obtenção do CPF da criança e do responsável.  O genitor Sr. Samuel informou que o filho está indo para escola regularmente e não falta mais. Disse que tem pegado muito no pé do filho quanto a isso. Disse que estava trabalhando como vigilante do reservatório da Cesan a noite, mas o serviço terminou e infelizmente está desempregado. Que a renda que possui no momento é somente a bolsa família no valor de 650,00 e tem passado por dificuldades com falta de alimentação,  e não tem condições de comprar as coisas para Ruan. Informou que o filho se queixa pela falta de material escolar, mas que não tem como comprar, pois quando recebe o benefício compra algumas coisas para casa e precisa pagar as contas. O pai disse que a escola informou que daria um tênis para Ruan, mas não deu e ele tem que estudar de chinelo. Segundo genitor a avó paterna é a dona do imóvel,  mas não é aposentada. E que há dois anos o pai se mudou para casa dela para sair do aluguel, e disse que sempre cuidou do filho, mas a bolsa família somente passou a receber no ano passado. O genitor disse que anteriormente já teve trabalho de carteira assinada, mas agora está a procura de emprego. Articuladora orientou responsável sobre a importância de assegurar a frequência regular de Ruan. Assim como explicado sobre o apoio do TR e o responsável disse que será de grande ajuda no momento. O pai disse já ser acompanhado pelo Cras. Foi orientado a providenciar o CPF de Ruan nos Correios. Aba responsável foi atualizada com idade e cpf do responsável (CPF do pai: 140.908.387-03 e idade atual 34 anos, como também contato telefônico do genitor (27) 99633-8913). Dados informativos para solicitação do apoio: ticket, kit material escolar, Calçado - tamanho: 37/38, Roupa - tamanho: 14 anos e taxa de emissão do CPF."
+  * 2: "Foi realizado contato com a família  para saber como encontrava-se Maria Eduarda. De acordo com a mãe,  adolescente está frequentando à escola, porém está apresentando outros problemas. Mãe acredita que filha está fazendo uso de drogas e que a mesma se apresenta muito rebelde. Foi realizada conversa orientativa com a mãe e ficamos de ver o que poderíamos fazer para auxiliar a família."
+  * 3: "Foi realizada visita à EEEFM Néa Salles para tentar matrícula para Luan e outros adolescentes, porém a quantidade de solicitação foi maior que o número de vagas disponíveis e não foi possível inserí-lo.Continuaremos articulando para conquistar matrícula."
+  * 4: "No dia 11/11/2024, consegui contato via telefone com a mãe e orientei sobre as faltas e dos prejuízos que a mesma causa para a  criança, a mãe relatou que vai da mais atenção em relação a isso e que a criança teve algumas faltas devido a algumas situações em relação a saúde, orientei a mãe sobre a importância da entrega do atestado médico a escola."
+  * 5: "De acordo com a avó Maria, Paulo Cesar havia sido transferido para o CMEI Pedro Vieira, e que agora para o próximo ano letivo ele irá cursar a 1ª série do fundamental na EMEF Maria Paiva. Avó informou não haver mais demandas que prejudiquem a vida escolar do aluno."
+Coluna "articulador_responsavel":
+- Valores nulos: 0 (0.00%)
+- Comprimento médio do texto: 14.77 caracteres
+- Comprimento mínimo: 12 caracteres
+- Comprimento máximo: 19 caracteres
+- Número de articuladores únicos: 10
+- Lista de articuladores e sua frequência:
+  * Luciana Carneiro: 4012 registros (21.06%)
+  * Thiago Pinto: 3924 registros (20.60%)
+  * Renata Macedo: 3480 registros (18.27%)
+  * Fabiana Serafim: 2593 registros (13.61%)
+  * Vilmara Souza (i): 2577 registros (13.53%)
+  * Gabriella Mazioli: 2256 registros (11.84%)
+  * Marcia Santos (i): 83 registros (0.44%)
+  * Mirelly Goulart (i): 47 registros (0.25%)
+  * Mirnna Oliveira (i): 46 registros (0.24%)
+  * Gleisson Neves (i): 30 registros (0.16%)
+
+Relação entre articuladores e qualidade das descrições:
+Articulador: Fabiana Serafim
+  - Total de registros: 2593.0
+  - Comprimento médio das descrições: 183.66 caracteres
+  - Comprimento mínimo: 5.0 caracteres
+  - Comprimento máximo: 1623.0 caracteres
+  - Descrições curtas: 2.0 (0.08%)
+Articulador: Luciana Carneiro
+  - Total de registros: 4012.0
+  - Comprimento médio das descrições: 240.33 caracteres
+  - Comprimento mínimo: 8.0 caracteres
+  - Comprimento máximo: 2739.0 caracteres
+  - Descrições curtas: 3.0 (0.07%)
+Articulador: Thiago Pinto
+  - Total de registros: 3924.0
+  - Comprimento médio das descrições: 211.59 caracteres
+  - Comprimento mínimo: 6.0 caracteres
+  - Comprimento máximo: 20691.0 caracteres
+  - Descrições curtas: 1.0 (0.03%)
+Articulador: Gabriella Mazioli
+  - Total de registros: 2256.0
+  - Comprimento médio das descrições: 204.42 caracteres
+  - Comprimento mínimo: 20.0 caracteres
+  - Comprimento máximo: 2801.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)
+Articulador: Marcia Santos (i)
+  - Total de registros: 83.0
+  - Comprimento médio das descrições: 137.72 caracteres
+  - Comprimento mínimo: 24.0 caracteres
+  - Comprimento máximo: 435.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)
+Articulador: Gleisson Neves (i)
+  - Total de registros: 30.0
+  - Comprimento médio das descrições: 132.57 caracteres
+  - Comprimento mínimo: 26.0 caracteres
+  - Comprimento máximo: 432.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)
+Articulador: Mirelly Goulart (i)
+  - Total de registros: 47.0
+  - Comprimento médio das descrições: 185.47 caracteres
+  - Comprimento mínimo: 62.0 caracteres
+  - Comprimento máximo: 825.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)
+Articulador: Mirnna Oliveira (i)
+  - Total de registros: 46.0
+  - Comprimento médio das descrições: 196.80 caracteres
+  - Comprimento mínimo: 62.0 caracteres
+  - Comprimento máximo: 596.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)
+Articulador: Renata Macedo
+  - Total de registros: 3480.0
+  - Comprimento médio das descrições: 347.98 caracteres
+  - Comprimento mínimo: 26.0 caracteres
+  - Comprimento máximo: 4090.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)
+Articulador: Vilmara Souza (i)
+  - Total de registros: 2577.0
+  - Comprimento médio das descrições: 217.83 caracteres
+  - Comprimento mínimo: 40.0 caracteres
+  - Comprimento máximo: 2732.0 caracteres
+  - Descrições curtas: 0.0 (0.00%)

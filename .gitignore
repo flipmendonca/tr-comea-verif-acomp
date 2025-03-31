@@ -1,0 +1,45 @@
+# Arquivos sensíveis com dados reais
+TR_Verif_Acomp_Cariacica.xlsx
+backup_data.xlsx
+inconsistencias_sucesso_contato.xlsx
+relatorio_resumo_geral_*.xlsx
+
+# Arquivos gerados pela aplicação
+*.xlsx
+!requirements.txt
+
+# Cache e arquivos temporários
+cache/
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# Arquivos do ambiente virtual
+venv/
+env/
+ENV/
+
+# Arquivos de configuração do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos de configuração de IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Arquivos de log
+*.log
+logs/
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Ambiente Streamlit
+.streamlit/ 
