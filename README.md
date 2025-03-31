@@ -38,13 +38,41 @@ O aplicativo agora suporta upload de dados diretamente pela interface. Para usar
 4. O aplicativo carregará e processará automaticamente os dados
 
 ### Formato do Arquivo
-O arquivo Excel deve conter as seguintes colunas principais:
-- acompanhamento_descricao
-- acompanhamento_articulador
-- acompanhamento_data
-- acompanhamento_sucesso_contato
-- dado_algum_encaminhamento
-- E outras colunas de instituições de encaminhamento
+O arquivo Excel deve estar no formato .xlsx e precisa conter as seguintes colunas obrigatórias:
+
+#### Colunas Obrigatórias:
+- `acompanhamento_descricao`: Texto da descrição do acompanhamento
+- `acompanhamento_articulador`: Nome do articulador que realizou o acompanhamento
+- `acompanhamento_data`: Data em que o acompanhamento foi realizado
+- `acompanhamento_sucesso_contato`: Se o contato foi bem-sucedido ("Sim" ou "Não")
+
+#### Colunas para Análise de Encaminhamentos:
+- `dado_algum_encaminhamento`: Se foi dado algum encaminhamento ("Sim" ou "Não")
+- `instituicao_encaminhamento_educacao`: Detalhes sobre encaminhamento para Educação
+- `instituicao_encaminhamento_saude`: Detalhes sobre encaminhamento para Saúde
+- `instituicao_encaminhamento_assistencia_social`: Detalhes sobre encaminhamento para Assistência Social
+- `instituicao_encaminhamento_conselho_tutelar`: Detalhes sobre encaminhamento para Conselho Tutelar
+- `instituicao_encaminhamento_estacao_conhecimento`: Detalhes sobre encaminhamento para Estação Conhecimento
+- `instituicao_encaminhamento_sociedade_civil`: Detalhes sobre encaminhamento para organizações da Sociedade Civil
+- `instituicao_encaminhamento_outro_equipamento`: Detalhes sobre encaminhamento para outros equipamentos
+
+#### Formatos de Dados:
+- Campos de data devem estar em formato de data reconhecível (dd/mm/aaaa ou similar)
+- Campos de texto: podem conter qualquer texto
+- Campos "Sim/Não": devem conter literalmente "Sim" ou "Não"
+- Campos de instituições: podem estar vazios quando não houver encaminhamento para aquela instituição
+
+#### Modelo de Dados:
+Para facilitar, você pode usar o seguinte modelo de colunas no seu arquivo Excel:
+
+| acompanhamento_descricao | acompanhamento_articulador | acompanhamento_data | acompanhamento_sucesso_contato | dado_algum_encaminhamento | instituicao_encaminhamento_educacao | instituicao_encaminhamento_saude | ... |
+|--------------------------|----------------------------|---------------------|--------------------------------|---------------------------|-------------------------------------|----------------------------------|-----|
+| Texto da descrição       | Nome do articulador        | 01/01/2025          | Sim                            | Não                       |                                     |                                  | ... |
+
+#### Observações:
+- Se uma coluna obrigatória estiver ausente, o aplicativo exibirá uma mensagem de erro
+- Dados inválidos podem causar erros ou análises incorretas
+- Recomenda-se usar o arquivo modelo como base para novos registros
 
 ## Deploy no Streamlit Cloud
 

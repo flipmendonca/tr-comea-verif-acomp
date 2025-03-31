@@ -203,12 +203,15 @@ def carregar_dados(uploaded_file=None):
             st.error(f"Erro ao carregar dados: {str(e)}")
             return None
     
-    # Garantir que as colunas de interesse existam
-    colunas_interesse = [
+    # Verificar se as colunas obrigatórias estão presentes
+    colunas_obrigatorias = [
         'acompanhamento_descricao', 
         'acompanhamento_articulador', 
         'acompanhamento_data', 
-        'acompanhamento_sucesso_contato',
+        'acompanhamento_sucesso_contato'
+    ]
+    
+    colunas_encaminhamentos = [
         'dado_algum_encaminhamento',
         'instituicao_encaminhamento_educacao',
         'instituicao_encaminhamento_saude',
@@ -220,28 +223,42 @@ def carregar_dados(uploaded_file=None):
     ]
     
     # Verificar colunas obrigatórias
-    colunas_obrigatorias = ['acompanhamento_descricao', 'acompanhamento_articulador', 'acompanhamento_data', 'acompanhamento_sucesso_contato']
-    for coluna in colunas_obrigatorias:
-        if coluna not in df.columns:
-            st.error(f"Coluna '{coluna}' não encontrada no arquivo!")
-            st.stop()
+    colunas_faltantes = [col for col in colunas_obrigatorias if col not in df.columns]
+    if colunas_faltantes:
+        st.error(f"O arquivo não contém as seguintes colunas obrigatórias: {', '.join(colunas_faltantes)}")
+        st.error("Por favor, verifique o formato do arquivo e tente novamente.")
+        st.info("Consulte a documentação no README para saber mais sobre o formato esperado do arquivo.")
+        return None
     
-    # Verificar colunas de encaminhamento e criar se não existirem (para evitar erros)
-    colunas_encaminhamento = [
-        'dado_algum_encaminhamento',
-        'instituicao_encaminhamento_educacao',
-        'instituicao_encaminhamento_saude',
-        'instituicao_encaminhamento_assistencia_social',
-        'instituicao_encaminhamento_conselho_tutelar',
-        'instituicao_encaminhamento_estacao_conhecimento',
-        'instituicao_encaminhamento_sociedade_civil',
-        'instituicao_encaminhamento_outro_equipamento'
-    ]
-    
-    for coluna in colunas_encaminhamento:
-        if coluna not in df.columns:
-            st.warning(f"Coluna '{coluna}' não encontrada! Será criada uma coluna vazia.")
+    # Verificar colunas de encaminhamentos (aviso, não erro crítico)
+    colunas_encaminhamentos_faltantes = [col for col in colunas_encaminhamentos if col not in df.columns]
+    if colunas_encaminhamentos_faltantes:
+        st.warning(f"O arquivo não contém algumas colunas para análise de encaminhamentos: {', '.join(colunas_encaminhamentos_faltantes)}")
+        st.warning("A análise de encaminhamentos pode estar incompleta. Considere adicionar estas colunas ao seu arquivo.")
+        
+        # Criar as colunas faltantes para evitar erros
+        for coluna in colunas_encaminhamentos_faltantes:
             df[coluna] = None
+    
+    # Garantir que as colunas de interesse existam
+    colunas_interesse = colunas_obrigatorias + colunas_encaminhamentos
+    
+    # Verificar se as datas estão no formato correto
+    if 'acompanhamento_data' in df.columns:
+        if not pd.api.types.is_datetime64_any_dtype(df['acompanhamento_data']):
+            try:
+                df['acompanhamento_data'] = pd.to_datetime(df['acompanhamento_data'])
+            except Exception as e:
+                st.warning(f"Não foi possível converter a coluna 'acompanhamento_data' para o formato de data. Erro: {str(e)}")
+                st.info("As datas devem estar em um formato reconhecível como 'dd/mm/aaaa'.")
+    
+    # Verificar valores Sim/Não
+    colunas_sim_nao = ['acompanhamento_sucesso_contato', 'dado_algum_encaminhamento']
+    for col in colunas_sim_nao:
+        if col in df.columns:
+            valores_invalidos = [val for val in df[col].unique() if val not in ['Sim', 'Não'] and not pd.isna(val)]
+            if valores_invalidos:
+                st.warning(f"A coluna '{col}' contém valores diferentes de 'Sim' ou 'Não': {', '.join(map(str, valores_invalidos))}")
     
     # Adicionar coluna de texto pré-processado
     df['texto_preprocessado'] = df['acompanhamento_descricao'].apply(preprocessar_texto)
@@ -801,6 +818,25 @@ tab_selecionada = st.sidebar.radio(
 # Área para upload de arquivo
 st.sidebar.header('Upload de Dados')
 uploaded_file = st.sidebar.file_uploader("Faça upload do arquivo Excel", type=['xlsx'])
+st.sidebar.markdown("""
+<details>
+<summary><small>ℹ️ Formato esperado do arquivo</small></summary>
+<small>
+
+O arquivo Excel deve conter as seguintes colunas obrigatórias:
+- `acompanhamento_descricao`
+- `acompanhamento_articulador` 
+- `acompanhamento_data`
+- `acompanhamento_sucesso_contato`
+
+Para análise completa, recomendamos incluir também:
+- `dado_algum_encaminhamento`
+- Colunas de instituições de encaminhamento
+
+Consulte o README para mais detalhes.
+</small>
+</details>
+""", unsafe_allow_html=True)
 
 # Carregar dados
 with st.spinner('Carregando e processando dados...'):
