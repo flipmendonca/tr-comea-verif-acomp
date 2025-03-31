@@ -27,6 +27,25 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Uso do Aplicativo
+
+### Upload de Dados
+O aplicativo agora suporta upload de dados diretamente pela interface. Para usar:
+
+1. Inicie o aplicativo
+2. Na barra lateral, clique no botão "Browse files" na seção "Upload de Dados"
+3. Selecione o arquivo Excel com os dados de acompanhamento (exemplo: `TR_Verif_Acomp_Cariacica.xlsx`)
+4. O aplicativo carregará e processará automaticamente os dados
+
+### Formato do Arquivo
+O arquivo Excel deve conter as seguintes colunas principais:
+- acompanhamento_descricao
+- acompanhamento_articulador
+- acompanhamento_data
+- acompanhamento_sucesso_contato
+- dado_algum_encaminhamento
+- E outras colunas de instituições de encaminhamento
+
 ## Deploy no Streamlit Cloud
 
 Para fazer o deploy no Streamlit Cloud:
@@ -38,6 +57,13 @@ Para fazer o deploy no Streamlit Cloud:
    - Python version: 3.10
 
 ## Solução de Problemas
+
+### Erro: FileNotFoundError
+
+Se você encontrar um erro de "FileNotFoundError", isso geralmente significa que o aplicativo não consegue encontrar o arquivo de dados. Soluções:
+
+1. **Upload do arquivo**: Use a funcionalidade de upload na barra lateral do aplicativo
+2. **Se estiver executando localmente**: Certifique-se de que o arquivo `TR_Verif_Acomp_Cariacica.xlsx` está na mesma pasta do arquivo `app.py`
 
 ### Erro: ModuleNotFoundError: No module named 'st_aggrid'
 

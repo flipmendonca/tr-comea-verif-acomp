@@ -17,6 +17,7 @@ from datetime import datetime, timedelta
 from sklearn.metrics.pairwise import cosine_similarity
 # Importar AgGrid para tabelas interativas
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
+import os
 warnings.filterwarnings('ignore')
 
 # Configuração da página
@@ -183,9 +184,24 @@ def classificar_consistencia(row):
 
 # Função para carregar os dados
 @st.cache_data
-def carregar_dados():
-    # Carregar dados
-    df = pd.read_excel('TR_Verif_Acomp_Cariacica.xlsx')
+def carregar_dados(uploaded_file=None):
+    # Verificar se um arquivo foi carregado pelo usuário
+    if uploaded_file is not None:
+        # Carregar dados do arquivo enviado pelo usuário
+        df = pd.read_excel(uploaded_file)
+    else:
+        try:
+            # Tentar carregar dados do arquivo local
+            arquivo_padrao = 'TR_Verif_Acomp_Cariacica.xlsx'
+            if os.path.exists(arquivo_padrao):
+                df = pd.read_excel(arquivo_padrao)
+            else:
+                # Se não encontrar o arquivo, retornar None
+                st.error(f"Arquivo {arquivo_padrao} não encontrado. Por favor, faça o upload do arquivo.")
+                return None
+        except Exception as e:
+            st.error(f"Erro ao carregar dados: {str(e)}")
+            return None
     
     # Garantir que as colunas de interesse existam
     colunas_interesse = [
@@ -782,9 +798,18 @@ tab_selecionada = st.sidebar.radio(
      "Detecção de Duplicados"]
 )
 
+# Área para upload de arquivo
+st.sidebar.header('Upload de Dados')
+uploaded_file = st.sidebar.file_uploader("Faça upload do arquivo Excel", type=['xlsx'])
+
 # Carregar dados
 with st.spinner('Carregando e processando dados...'):
-    df = carregar_dados()
+    df = carregar_dados(uploaded_file)
+
+# Verificar se os dados foram carregados
+if df is None:
+    st.warning("Nenhum arquivo carregado. Por favor, faça o upload do arquivo Excel com os dados de acompanhamento.")
+    st.stop()  # Parar a execução do aplicativo até que o arquivo seja carregado
 
 # Sidebar para filtros
 st.sidebar.header('Filtros')
