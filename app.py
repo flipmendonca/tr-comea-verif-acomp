@@ -187,14 +187,24 @@ def classificar_consistencia(row):
 def carregar_dados(uploaded_file=None):
     # Verificar se um arquivo foi carregado pelo usuário
     if uploaded_file is not None:
-        # Carregar dados do arquivo enviado pelo usuário
-        df = pd.read_excel(uploaded_file)
+        if uploaded_file.name.lower().endswith('.csv'):
+            # Carregar dados do arquivo CSV
+            df = pd.read_csv(uploaded_file, sep=';')
+        elif uploaded_file.name.lower().endswith('.xlsx'):
+            # Carregar dados do arquivo Excel
+            df = pd.read_excel(uploaded_file)
+        else:
+            st.error("Formato de arquivo não suportado. Por favor, faça o upload de um arquivo CSV ou Excel.")
+            return None
     else:
         try:
             # Tentar carregar dados do arquivo local
             arquivo_padrao = 'TR_Verif_Acomp_Cariacica.xlsx'
             if os.path.exists(arquivo_padrao):
-                df = pd.read_excel(arquivo_padrao)
+                if arquivo_padrao.lower().endswith('.csv'):
+                    df = pd.read_csv(arquivo_padrao, sep=';')
+                elif arquivo_padrao.lower().endswith('.xlsx'):
+                    df = pd.read_excel(arquivo_padrao)
             else:
                 # Se não encontrar o arquivo, retornar None
                 st.error(f"Arquivo {arquivo_padrao} não encontrado. Por favor, faça o upload do arquivo.")
@@ -817,7 +827,7 @@ tab_selecionada = st.sidebar.radio(
 
 # Área para upload de arquivo
 st.sidebar.header('Upload de Dados')
-uploaded_file = st.sidebar.file_uploader("Faça upload do arquivo Excel", type=['xlsx'])
+uploaded_file = st.sidebar.file_uploader("Faça upload do arquivo Excel", type=['xlsx','csv'])
 st.sidebar.markdown("""
 <details>
 <summary><small>ℹ️ Formato esperado do arquivo</small></summary>
@@ -863,7 +873,7 @@ data_max = df['acompanhamento_data'].max().date()
 
 # Definir data inicial padrão como 01/01/2025 (ou a data mínima se for maior)
 data_inicio_padrao = max(datetime(2025, 1, 1).date(), data_min)
-
+          
 # Criar filtro de período (data inicial e final)
 col1, col2 = st.sidebar.columns(2)
 with col1:
